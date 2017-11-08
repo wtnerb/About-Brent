@@ -10,26 +10,23 @@ function Question (answer, string, successMessage, failMessage){
   this.getUserAnswer = function(){
     //method to get answer to question from user. Only accepts valid answers.
     //interprets answers to a true/false and returns.
-    var userAnswer = 'a';
-    //FEEDBACK: did not realize empty string would evaluate as a false. I was
-    //able to console.log to notice that the following loop never fired, so
-    //that was the problem. That was over an hour of frustration.
-    while (userAnswer != true && userAnswer != false) {
+    var userAnswer = '';
+    while (userAnswer !== true && userAnswer !== false) {
+      //Until I went home and did the reading last night, I could not get the
+      //while condition to evaluate the way I wanted
       userAnswer = prompt('Please answer yes/no to the following:' + this.question);
       console.log('for question', this.question, 'user input was', userAnswer);
       userAnswer = userAnswer.toLowerCase();
       console.log('Altered user input', userAnswer);
-      //odd structure for console.log(), but needed to idenitry wich object had
-      //errors.
       if (userAnswer === 'yes' || userAnswer === 'y'){
         userAnswer = true;
       } else if (userAnswer === 'no' || userAnswer === 'n') {
         userAnswer = false;
       } else {
         alert ('Invalid input! Try again!');
+        console.log('invalid user answer was:', userAnswer);
       }
-      console.log('user answer method output:', userAnswer);
-      console.log('actual true value', this.answer);
+      console.log('user answer method output:', userAnswer, 'actual:', this.answer);
     }
     console.log('got valid user answer:', userAnswer);
     return userAnswer;
@@ -50,7 +47,7 @@ function Question (answer, string, successMessage, failMessage){
 }
 console.log('Function declarations complete');
 
-//main function begins here
+//Assemble questions into an array
 var questions = [];
 console.log('init questions array', questions);
 //this is where the Question objects will go.
@@ -58,9 +55,8 @@ questions.push (new Question(true, 'Has Brent lived on three continents?',
   'Yes! Although, bizarrely, it\'s been over a decade since I left this one',
   'Actually, the answer is yes. Five years in Europe and two in Asia.'));
   console.log('first addtion to questions array:', questions[0]);
-  //
 questions.push (new Question(false, 'Does Brent speak three languages?',
-  'Correct! I speak English an a little French. I can write code in four, though.',
+  'Correct! I speak English an a little French. I learned coding instead.',
   'Incorrect! I would like to become a polyglot, but I learned coding instead.'));
 questions.push (new Question (false, 'Does Brent drink three cups of coffee a day?',
   'Correct! While I will drink coffee socially, I prefer tea as a daily beverage.',
@@ -69,7 +65,7 @@ questions.push (new Question(false, 'Has Brent been alive for three decades?',
   'Correct! I\m still in my mid twenties',
   'How rude! No! :('));
 questions.push (new Question(true, 'Is Brent a bit obssessed with the number three?',
-  'Obviously! Someone notice the pattern to these questions. Good job! :)',
+  'Obviously! Someone noticed the pattern to these questions. Good job! :)',
   'Actually, I am. That\'s why all these questions are about the number three.'));
 console.log('fully constructed questions array',questions);
 
