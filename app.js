@@ -69,8 +69,24 @@ questions.push (new Question(true, 'Is Brent a bit obssessed with the number thr
   'Actually, I am. That\'s why all these questions are about the number three.'));
 console.log('fully constructed questions array',questions);
 
-//now that everything is set up, time for the actual execution.
-for (var i = 0; i < questions.length; i++){
-  questions[i].checkUserAnswer(questions[i].getUserAnswer());
-  console.log('looping through the array', i);
+//Uncomment on submission. Skipping while building.
+// for (var i = 0; i < questions.length; i++){
+//   questions[i].checkUserAnswer(questions[i].getUserAnswer());
+//   console.log('looping through the array', i);
+// }
+
+var topUsChessPlayers = ['caruana', 'so', 'nakamura', 'onischuk', 'kamsky', 'akobian'];
+var userCorrect = false;
+//source: US Chess Federation website pulled 2017.11.08 15:25
+//http://www.uschess.org/component/option,com_top_players/Itemid,371?op=list&month=1710&f=usa&l=R:Top%20Overall.&h=Overall
+var chessQuestion = new Question(topUsChessPlayers, 'Brent loves chess. Can you name one of the top US chess players? Use only the last name, spelling will count.',
+'Congratulations! You know your chess players!', 'Nope!');
+var userInput = prompt(chessQuestion.question).toLowerCase();
+for (var j = 0; j < topUsChessPlayers.length; j++)
+{
+  console.log('Checking user guess of player:', userInput, 'vs', topUsChessPlayers[j]);
+  if (userInput ===  topUsChessPlayers[j]){
+    userCorrect = true;
+    break;
+  }
 }
