@@ -10,11 +10,14 @@ function Question (answer, string, successMessage, failMessage){
   this.getUserAnswer = function(){
     //method to get answer to question from user. Only accepts valid answers.
     //interprets answers to a true/false and returns.
-    var userAnswer = '';
+    var userAnswer = 'a';
+    //FEEDBACK: did not realize empty string would evaluate as a false. I was
+    //able to console.log to notice that the following loop never fired, so
+    //that was the problem. That was over an hour of frustration.
     while (userAnswer != true && userAnswer != false) {
       userAnswer = prompt('Please answer yes/no to the following:' + this.question);
       console.log('for question', this.question, 'user input was', userAnswer);
-      toLowerCase (userAnswer);
+      userAnswer = userAnswer.toLowerCase();
       console.log('Altered user input', userAnswer);
       //odd structure for console.log(), but needed to idenitry wich object had
       //errors.
@@ -25,6 +28,8 @@ function Question (answer, string, successMessage, failMessage){
       } else {
         alert ('Invalid input! Try again!');
       }
+      console.log('user answer method output:', userAnswer);
+      console.log('actual true value', this.answer);
     }
     console.log('got valid user answer:', userAnswer);
     return userAnswer;
@@ -33,8 +38,10 @@ function Question (answer, string, successMessage, failMessage){
     //compares user answer to question to question's actual answer.
     //displays appropriate success/fail answer based on comparison.
     if (userAnswer === this.answer){
+      console.log('answers match!');
       confirm (this.successMessage);
     } else if (userAnswer != this.answer) {
+      console.log('answers don\'t match!');
       confirm (this.failMessage);
     } else {
       console.log('ERROR in checkUserAnswer question', this.question);
@@ -53,16 +60,18 @@ questions.push (new Question(true, 'Has Brent lived on three continents?',
   console.log('first addtion to questions array:', questions[0]);
   //
 questions.push (new Question(false, 'Does Brent speak three languages?',
-  'Incorrect! I speak English an a little French. I can write code in four, though.',
-  'Correct! I would like to become a polyglot, but I learned coding instead.'));
+  'Correct! I speak English an a little French. I can write code in four, though.',
+  'Incorrect! I would like to become a polyglot, but I learned coding instead.'));
 questions.push (new Question (false, 'Does Brent drink three cups of coffee a day?',
-  'No! While I will drink coffee socially, I prefer tea as a daily beverage.',
+  'Correct! While I will drink coffee socially, I prefer tea as a daily beverage.',
   'Yes! I drink that much tea, not coffee.'));
-questions.push (new Question(true, 'Has Brent been alive for three decades?',
-  'How rude! No! :(', 'Correct! I\m still in my mid twenties'));
+questions.push (new Question(false, 'Has Brent been alive for three decades?',
+  'Correct! I\m still in my mid twenties',
+  'How rude! No! :('));
 questions.push (new Question(true, 'Is Brent a bit obssessed with the number three?',
   'Obviously! Someone notice the pattern to these questions. Good job! :)',
   'Actually, I am. That\'s why all these questions are about the number three.'));
+console.log('fully constructed questions array',questions);
 
 var i = 0;
 //declaring index.
@@ -70,4 +79,5 @@ var i = 0;
 //now that everything is set up, time for the actual execution.
 for (i; i < questions.length; i++){
   questions[i].checkUserAnswer(questions[i].getUserAnswer());
+  console.log('looping through the array', i);
 }
