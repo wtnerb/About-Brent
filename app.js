@@ -69,11 +69,8 @@ questions.push (new Question(true, 'Is Brent a bit obssessed with the number thr
   'Actually, I am. That\'s why all these questions are about the number three.'));
 console.log('fully constructed questions array',questions);
 
-var i = 0;
-//declaring index.
-
 //now that everything is set up, time for the actual execution.
-for (i; i < questions.length; i++){
+for (var i = 0; i < questions.length; i++){
   questions[i].checkUserAnswer(questions[i].getUserAnswer());
   console.log('looping through the array', i);
 }
