@@ -1,5 +1,6 @@
 'use strict';
 
+var correctAnswers = 0;
 function Question (answer, string, successMessage, failMessage){
   //There will be several different questions all handled the same way.
   //This will construct each question to make looping through them easier.
@@ -36,6 +37,7 @@ function Question (answer, string, successMessage, failMessage){
     //displays appropriate success/fail answer based on comparison.
     if (userAnswer === this.answer){
       console.log('answers match!');
+      correctAnswers++;
       confirm (this.successMessage);
     } else if (userAnswer != this.answer) {
       console.log('answers don\'t match!');
@@ -69,17 +71,29 @@ questions.push (new Question(true, 'Is Brent a bit obssessed with the number thr
   'Actually, I am. That\'s why all these questions are about the number three.'));
 console.log ('fully constructed questions array',questions);
 
-var correctAnswers = 0;
 //Uncomment on submission. Skipping while building.
 // for (var i = 0; i < questions.length; i++){
 //   questions[i].checkUserAnswer(questions[i].getUserAnswer());
 //   console.log('looping through the array', i);
 // }
-//when uncomment, introduce correnctAnswers counter++;
 var userCorrect = false;
-var counter = 1
-
-//question six goes here
+var userInput = 3;
+var classCode = new Question ('121', 'What was the course number of Brent\'s first coding course',
+  'Yes. cpts 121 at WSU.', 'nope! HINT: thee digit integer.');
+for (var j = 0; j < 4; j++){
+  userInput = prompt (classCode.question).toLowerCase ();
+  if (userInput === classCode.answer){
+    userCorrect = true;
+    alert (classCode.successMessage);
+    correctAnswers++;
+    j = 4;
+  } else {
+    alert (classCode.failMessage);
+  }
+}
+if (!userCorrect){
+  alert('Too many incorrect answers! Answer: Brent\'s first coding course was CPTS 121 at WSU');
+}
 
 var topUsChessPlayers = ['caruana', 'so', 'nakamura', 'onischuk', 'kamsky', 'akobian'];
 //source: US Chess Federation website pulled 2017.11.08 15:25
@@ -87,23 +101,26 @@ var topUsChessPlayers = ['caruana', 'so', 'nakamura', 'onischuk', 'kamsky', 'ako
 var chessQuestion = new Question(topUsChessPlayers, 'Brent loves chess. Can you name one of the top US chess players? Use only the last name, spelling will count.',
 'Congratulations! You know your chess players!', 'Nope!');
 userCorrect=false;
-counter = 1;
-while (!userCorrect && counter <=6) {
-  var userInput = prompt (chessQuestion.question).toLowerCase ();
-  for (var j = 0; j < topUsChessPlayers.length; j++)
+userInput = 3;
+var l = 1;
+while (!userCorrect && l <=6) {
+  userInput = prompt (chessQuestion.question).toLowerCase ();
+  for (var k = 0; k < topUsChessPlayers.length; k++)
   {
-    console.log('Checking user guess of player:', userInput, 'vs', topUsChessPlayers[j]);
-    if (userInput ===  topUsChessPlayers[j]) {
+    console.log('Checking user guess of player:', userInput, 'vs', topUsChessPlayers[k]);
+    if (userInput ===  chessQuestion.answer[k]) {
       userCorrect = true;
-      counter = 10;
+      l = 10;
+      k = topUsChessPlayers.length;
       correctAnswers++;
-      break;
-      alert(chessQuestion.successMessage)
+      alert (chessQuestion.successMessage);
     }
+    }
+    if (!userCorrect){
+      alert (chessQuestion.failMessage);
+    }
+    l++;
   }
-  alert(chessQuestion.failMessage)
-  counter++;
-}
 if (!userCorrect) {
   alert ('Too many wrong answers. u even trivia, bro?');
 }
