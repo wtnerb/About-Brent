@@ -72,10 +72,10 @@ questions.push (new Question(true, 'Is Brent a bit obssessed with the number thr
 console.log ('fully constructed questions array',questions);
 
 //Uncomment on submission. Skipping while building.
-// for (var i = 0; i < questions.length; i++){
-//   questions[i].checkUserAnswer(questions[i].getUserAnswer());
-//   console.log('looping through the array', i);
-// }
+for (var i = 0; i < questions.length; i++){
+  questions[i].checkUserAnswer(questions[i].getUserAnswer());
+  console.log('looping through the array', i);
+}
 var userCorrect = false;
 var userInput = 3;
 var classCode = new Question ('121', 'What was the course number of Brent\'s first coding course',
