@@ -7,28 +7,28 @@ function Question (answer, string, successMessage, failMessage){
   this.question = string;
   this.successMessage = successMessage;
   this.failMessage = failMessage;
-  this.getUserAnswer = function(){
+  this.getUserAnswer = function (){
     //method to get answer to question from user. Only accepts valid answers.
     //interprets answers to a true/false and returns.
     var userAnswer = '';
     while (userAnswer !== true && userAnswer !== false) {
       //Until I went home and did the reading last night, I could not get the
       //while condition to evaluate the way I wanted
-      userAnswer = prompt('Please answer yes/no to the following:' + this.question);
-      console.log('for question', this.question, 'user input was', userAnswer);
+      userAnswer = prompt ('Please answer yes/no to the following:' + this.question);
+      console.log ('for question', this.question, 'user input was', userAnswer);
       userAnswer = userAnswer.toLowerCase();
-      console.log('Altered user input', userAnswer);
+      console.log ('Altered user input', userAnswer);
       if (userAnswer === 'yes' || userAnswer === 'y'){
         userAnswer = true;
       } else if (userAnswer === 'no' || userAnswer === 'n') {
         userAnswer = false;
       } else {
         alert ('Invalid input! Try again!');
-        console.log('invalid user answer was:', userAnswer);
+        console.log ('invalid user answer was:', userAnswer);
       }
-      console.log('user answer method output:', userAnswer, 'actual:', this.answer);
+      console.log ('user answer method output:', userAnswer, 'actual:', this.answer);
     }
-    console.log('got valid user answer:', userAnswer);
+    console.log ('got valid user answer:', userAnswer);
     return userAnswer;
   };
   this.checkUserAnswer = function (userAnswer){
@@ -49,7 +49,7 @@ console.log('Function declarations complete');
 
 //Assemble questions into an array
 var questions = [];
-console.log('init questions array', questions);
+console.log ('init questions array', questions);
 //this is where the Question objects will go.
 questions.push (new Question(true, 'Has Brent lived on three continents?',
   'Yes! Although, bizarrely, it\'s been over a decade since I left this one',
@@ -67,26 +67,44 @@ questions.push (new Question(false, 'Has Brent been alive for three decades?',
 questions.push (new Question(true, 'Is Brent a bit obssessed with the number three?',
   'Obviously! Someone noticed the pattern to these questions. Good job! :)',
   'Actually, I am. That\'s why all these questions are about the number three.'));
-console.log('fully constructed questions array',questions);
+console.log ('fully constructed questions array',questions);
 
+var correctAnswers = 0;
 //Uncomment on submission. Skipping while building.
 // for (var i = 0; i < questions.length; i++){
 //   questions[i].checkUserAnswer(questions[i].getUserAnswer());
 //   console.log('looping through the array', i);
 // }
+//when uncomment, introduce correnctAnswers counter++;
+var userCorrect = false;
+var counter = 1
+
+//question six goes here
 
 var topUsChessPlayers = ['caruana', 'so', 'nakamura', 'onischuk', 'kamsky', 'akobian'];
-var userCorrect = false;
 //source: US Chess Federation website pulled 2017.11.08 15:25
 //http://www.uschess.org/component/option,com_top_players/Itemid,371?op=list&month=1710&f=usa&l=R:Top%20Overall.&h=Overall
 var chessQuestion = new Question(topUsChessPlayers, 'Brent loves chess. Can you name one of the top US chess players? Use only the last name, spelling will count.',
 'Congratulations! You know your chess players!', 'Nope!');
-var userInput = prompt(chessQuestion.question).toLowerCase();
-for (var j = 0; j < topUsChessPlayers.length; j++)
-{
-  console.log('Checking user guess of player:', userInput, 'vs', topUsChessPlayers[j]);
-  if (userInput ===  topUsChessPlayers[j]){
-    userCorrect = true;
-    break;
+userCorrect=false;
+counter = 1;
+while (!userCorrect && counter <=6) {
+  var userInput = prompt (chessQuestion.question).toLowerCase ();
+  for (var j = 0; j < topUsChessPlayers.length; j++)
+  {
+    console.log('Checking user guess of player:', userInput, 'vs', topUsChessPlayers[j]);
+    if (userInput ===  topUsChessPlayers[j]) {
+      userCorrect = true;
+      counter = 10;
+      correctAnswers++;
+      break;
+      alert(chessQuestion.successMessage)
+    }
   }
+  alert(chessQuestion.failMessage)
+  counter++;
 }
+if (!userCorrect) {
+  alert ('Too many wrong answers. u even trivia, bro?');
+}
+alert ('you got ' + correctAnswers + ' questions correct. Congrats!');
