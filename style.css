@@ -7,3 +7,10 @@ footer{
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+h1 {
+  font-family: fantasy;
+  margin-left: 20%;
+  margin-right: 20%;
+  color: forestgreen;
+}
