@@ -1,6 +1,16 @@
 'use strict';
 
 var correctAnswers = 0;
+function isInArray (stuff, arr) {
+  for (var counter = 0; counter < array.length; counter++) {
+    var answerCorrect = false;
+    if (stuff === arr[counter]) {
+      answerCorrect = true;
+      break;
+    }
+  }
+  return answerCorrect;
+}
 function Question (answer, string, successMessage, failMessage){
   //There will be several different questions all handled the same way.
   //This will construct each question to make looping through them easier.
@@ -56,7 +66,7 @@ console.log ('init questions array', questions);
 questions.push (new Question(true, 'Has Brent lived on three continents?',
   'Yes! Although, bizarrely, it\'s been over a decade since I left this one',
   'Actually, the answer is yes. Five years in Europe and two in Asia.'));
-  console.log('first addtion to questions array:', questions[0]);
+  console.log('first addition to questions in array:', questions[0]);
 questions.push (new Question(false, 'Does Brent speak three languages?',
   'Correct! I speak English an a little French. I learned coding instead.',
   'Incorrect! I would like to become a polyglot, but I learned coding instead.'));
@@ -64,7 +74,7 @@ questions.push (new Question (false, 'Does Brent drink three cups of coffee a da
   'Correct! While I will drink coffee socially, I prefer tea as a daily beverage.',
   'Yes! I drink that much tea, not coffee.'));
 questions.push (new Question(false, 'Has Brent been alive for three decades?',
-  'Correct! I\m still in my mid twenties',
+  'Correct! I\'m still in my mid twenties',
   'How rude! No! :('));
 questions.push (new Question(true, 'Is Brent a bit obssessed with the number three?',
   'Obviously! Someone noticed the pattern to these questions. Good job! :)',
@@ -79,14 +89,14 @@ for (var i = 0; i < questions.length; i++){
 var userCorrect = false;
 var userInput = 3;
 var classCode = new Question ('121', 'What was the course number of Brent\'s first coding course',
-  'Yes. cpts 121 at WSU.', 'nope! HINT: thee digit integer.');
+  'Yes. cpts 121 at WSU.', 'nope! HINT: three digit integer.');
 for (var j = 0; j < 4; j++){
   userInput = prompt (classCode.question).toLowerCase ();
   if (userInput === classCode.answer){
     userCorrect = true;
     alert (classCode.successMessage);
     correctAnswers++;
-    j = 4;
+    break;
   } else {
     alert (classCode.failMessage);
   }
@@ -105,22 +115,16 @@ userInput = 3;
 var l = 1;
 while (!userCorrect && l <=6) {
   userInput = prompt (chessQuestion.question).toLowerCase ();
-  for (var k = 0; k < topUsChessPlayers.length; k++)
-  {
-    console.log('Checking user guess of player:', userInput, 'vs', topUsChessPlayers[k]);
-    if (userInput ===  chessQuestion.answer[k]) {
-      userCorrect = true;
-      l = 10;
-      k = topUsChessPlayers.length;
-      correctAnswers++;
-      alert (chessQuestion.successMessage);
-    }
-    }
-    if (!userCorrect){
-      alert (chessQuestion.failMessage);
-    }
-    l++;
+  userCorrect = isInArray(userInput, topUsChessPlayers);
+  if (userCorrect){
+    correctAnswers++;
+    alert (chessQuestion.successMessage);
   }
+  if (!userCorrect){
+    alert (chessQuestion.failMessage);
+  }
+  l++;
+}
 if (!userCorrect) {
   alert ('Too many wrong answers. u even trivia, bro?');
 }
