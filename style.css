@@ -7,21 +7,29 @@ footer{
   padding-top: 5px;
   padding-bottom: 5px;
 }
-
+div{
+  background-color: rgba(255,255,255,.7);
+  min-width: 200px;
+  width: 50%;
+}
 h1 {
   font-family: fantasy;
   margin-left: 20%;
   margin-right: 20%;
   color: forestgreen;
+  font-weight: 600;
+  font-size: 30;
 }
-
 header {
-  position: sticky;
+  position: fixed;
+  top: 0;
   text-align: center;
+  width: 100%;
+  background-color: rgba(180,180,180, .5);
 }
-
 main {
   padding-top: 80px;
+  margin-top: 100px;
 }
 img {
   float: right;
@@ -29,9 +37,14 @@ img {
 body {
   background-image: url("chess.jpg");
   color: red;
+  font-weight: bold;
 }
+
 #face-shot {
-  float:none;
   align-items: center;
   padding-left: 30%;
+}
+nav {
+  font-size: 20pt;
+  font-family: monospace;
 }

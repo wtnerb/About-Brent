@@ -2,6 +2,7 @@
 
 var correctAnswers = 0;
 function isInArray (stuff, arr) {
+  //a less efficient version of the inclues method
   for (var counter = 0; counter < array.length; counter++) {
     var answerCorrect = false;
     if (stuff === arr[counter]) {
@@ -17,39 +18,37 @@ function Question (answer, string, successMessage, failMessage){
   this.question = string;
   this.successMessage = successMessage;
   this.failMessage = failMessage;
-  this.getUserAnswer = function (){
-    var userAnswer = '';
-    while (userAnswer !== true && userAnswer !== false) {
-      userAnswer = prompt ('Please answer yes/no to the following: ' + this.question);
-      userAnswer = userAnswer.toLowerCase();
-      if (userAnswer === 'yes' || userAnswer === 'y'){
-        userAnswer = true;
-      } else if (userAnswer === 'no' || userAnswer === 'n') {
-        userAnswer = false;
-      } else {
-        alert ('Invalid input! Try again!');
-      }
-    }
-    return userAnswer;
-  };
-  this.checkUserAnswer = function (userAnswer){
-    if (userAnswer === this.answer){
-      correctAnswers++;
-      confirm (this.successMessage);
-    } else if (userAnswer != this.answer) {
-      confirm (this.failMessage);
-    } else {
-      console.log('ERROR in checkUserAnswer question', this.question);
-    }
-  };
 }
+Question.prototype.checkUserAnswer = function (userAnswer){
+  if (userAnswer === this.answer){
+    correctAnswers++;
+    confirm (this.successMessage);
+  } else if (userAnswer !== this.answer) {
+    confirm (this.failMessage);
+  }
+};
+Question.prototype.getUserAnswer = function (){
+  var userAnswer = '';
+  while (userAnswer !== true && userAnswer !== false) {
+    userAnswer = prompt ('Please answer yes/no to the following: ' + this.question);
+    userAnswer = userAnswer.toLowerCase();
+    if (userAnswer === 'yes' || userAnswer === 'y'){
+      userAnswer = true;
+    } else if (userAnswer === 'no' || userAnswer === 'n') {
+      userAnswer = false;
+    } else {
+      alert ('Invalid input! Try again!');
+    }
+  }
+  return userAnswer;
+};
 
 var questions = [];
 questions.push (new Question(true, 'Has Brent lived on three continents?',
   'Yes! Although, bizarrely, it\'s been over a decade since I left this one',
   'Actually, the answer is yes. Five years in Europe and two in Asia.'));
 questions.push (new Question(false, 'Does Brent speak three languages?',
-  'Correct! I speak English an a little French. I learned coding instead.',
+  'Correct! I speak English and a little French. I\'m learning coding instead.',
   'Incorrect! I would like to become a polyglot, but I learned coding instead.'));
 questions.push (new Question (false, 'Does Brent drink three cups of coffee a day?',
   'Correct! While I will drink coffee socially, I prefer tea as a daily beverage.',
